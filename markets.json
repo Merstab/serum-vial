@@ -1,35 +1,35 @@
 [
-	{
-		"address": "CVfYa8RGXnuDBeGmniCcdkBwoLqVxh92xB1JqgRQx3F",
-		"deprecated": true,
-		"name": "BTC/USDC",
-		"programId": "EUqojwWA2rd19FZrzeBncJsm38Jm1hEhE3zsmX3bRc2o"
-	},
-	{
-		"address": "A8YFbxQYFVqKZaoYJLLUVcQiWP7G2MeEgW5wsAQgMvFw",
-		"deprecated": false,
-		"name": "BTC/USDC",
-		"programId": "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"
-	},
-	{
-		"address": "C1EuT9VokAKLiW7i2ASnZUvxDoKuKkCpDDeNxAptuNe4",
-		"deprecated": false,
-		"name": "BTC/USDT",
-		"programId": "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"
-	},
-	{
+  {
+    "address": "CVfYa8RGXnuDBeGmniCcdkBwoLqVxh92xB1JqgRQx3F",
+    "deprecated": true,
+    "name": "BTC/USDC",
+    "programId": "EUqojwWA2rd19FZrzeBncJsm38Jm1hEhE3zsmX3bRc2o"
+  },
+  {
+    "address": "A8YFbxQYFVqKZaoYJLLUVcQiWP7G2MeEgW5wsAQgMvFw",
+    "deprecated": false,
+    "name": "BTC/USDC",
+    "programId": "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"
+  },
+  {
+    "address": "C1EuT9VokAKLiW7i2ASnZUvxDoKuKkCpDDeNxAptuNe4",
+    "deprecated": false,
+    "name": "BTC/USDT",
+    "programId": "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"
+  },
+  {
     "address": "7xMDbYTCqQEcK2aM9LbetGtNFJpzKdfXzLL5juaLh4GJ",
     "deprecated": true,
     "name": "SOL/USDC",
     "programId": "EUqojwWA2rd19FZrzeBncJsm38Jm1hEhE3zsmX3bRc2o"
   },
-	{
+  {
     "address": "9wFFyRfZBsuAha4YcuxcXLKwMxJR43S7fPfQLusDBzvT",
     "deprecated": false,
     "name": "SOL/USDC",
     "programId": "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"
   },
-	{
+  {
     "address": "HWHvQhFmJB3NUcu1aihKmrKegfVxBEHzwVX6yZCKEsi1",
     "deprecated": false,
     "name": "SOL/USDT",
