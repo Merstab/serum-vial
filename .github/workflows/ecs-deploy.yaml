@@ -4,10 +4,13 @@ on:
   push:
     branches: [master]
 
+env:
+  SERVICE: serum_vial
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    environment: production
     permissions:
       id-token: write
       contents: read
@@ -21,7 +24,11 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::623699964423:role/githubactions-oidc-role
-          aws-region: us-east-2
+          aws-region: eu-central-1
+
+      - name: Set sha
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       - name: Push to ECR
         id: tag
@@ -29,8 +36,28 @@ jobs:
           aws ecr get-login-password --region ${region}  | docker login --username AWS --password-stdin ${accountid}.dkr.ecr.${region}.amazonaws.com
           docker build -t ${ecr_repository} .
           docker tag ${ecr_repository}:latest ${accountid}.dkr.ecr.${region}.amazonaws.com/${ecr_repository}:latest
+          docker tag ${ecr_repository}:latest ${accountid}.dkr.ecr.${region}.amazonaws.com/${ecr_repository}:${{ steps.vars.outputs.sha_short }}
           docker push ${accountid}.dkr.ecr.${region}.amazonaws.com/${ecr_repository}:latest
+          docker push ${accountid}.dkr.ecr.${region}.amazonaws.com/${ecr_repository}:${{ steps.vars.outputs.sha_short }}
+          echo "::set-output name=image::${accountid}.dkr.ecr.${region}.amazonaws.com/${ecr_repository}:${{ steps.vars.outputs.sha_short }}"
+          aws ecs describe-task-definition --task-definition $SERVICE --output json --query "taskDefinition" > task_definition.json
         env:
           accountid: 623699964423
-          region: us-east-2
-          ecr_repository: serum_vial
+          region: eu-central-1
+          ecr_repository: ${{ env.SERVICE }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@97587c9d45a4930bf0e3da8dd2feb2a463cf4a3a
+        with:
+          task-definition: task_definition.json
+          container-name: ${{ env.SERVICE }}
+          image: ${{ steps.tag.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.SERVICE }}
+          cluster: nebula
+          wait-for-service-stability: true
