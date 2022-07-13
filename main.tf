@@ -6,6 +6,13 @@ terraform {
       source  = "hashicorp/aws"
     }
   }
+
+  backend "s3" {
+    bucket  = "merstab-tfstate"
+    key     = "serum_vial"
+    region  = "eu-central-1"
+    profile = "merstab-terraform"
+  }
 }
 
 provider "aws" {}
