@@ -20,7 +20,7 @@ provider "aws" {}
 module "serum_vial_ecs_service" {
   source = "./iac"
 
-  desired_count = 1
+  desired_count = 0
   image_version = "1.7.0"
   cluster_name  = "nebula"
   task_name     = "serum_vial"
